@@ -17,27 +17,40 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loginState = ref.watch(loginProvider);
 
-    return MaterialApp(
-      home: loginState.when(
+    Widget homeWidget;
 
-        data: (user) => user != null ? HomePage() : LoginPage(),
-
-
-        loading: () => Scaffold(
-          appBar: AppBar(),
-          body: Center(
-            child: Container(
-              height: 200,
-              width: 200,
-              child: CircularProgressIndicator(),
-            ),
+    if (loginState is AsyncData<User?>) {
+      if (loginState.value != null) {
+        homeWidget = HomePage();
+      } else {
+        homeWidget = LoginScreen();
+      }
+    } else {
+      homeWidget = Scaffold(
+        appBar: AppBar(),
+        body: Center(
+          child: Container(
+            height: 200,
+            width: 200,
+            child: CircularProgressIndicator(),
           ),
-        ), // Show loading overlay
+        ),
+      );
+    }
 
-        error: (object, stacktrace) => LoginPage(), // Handle error if needed
+    return MaterialApp(
+      title: 'My App',
+        theme: ThemeData(
 
-        
+        //primaryColor: Color(0xFF008080), // Custom primary color
+
+        colorSchemeSeed: Color.fromARGB(255, 255, 0, 0), // Custom accent color
+        fontFamily: 'Raleway',           // Custom font
+        textTheme: TextTheme(
+          bodyText2: TextStyle(fontSize: 16.0, color: Colors.black87),
+        ),
       ),
+      home: homeWidget,
     );
   }
 }

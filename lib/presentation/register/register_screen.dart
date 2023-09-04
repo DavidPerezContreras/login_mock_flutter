@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:xad/presentation/login/login_provider.dart';
-import 'package:xad/presentation/register/register_screen.dart';
 
-class LoginScreen extends ConsumerWidget {
+class RegisterScreen extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Login",
+          'Register',
           style: TextStyle(
             color: Colors.black, // Text color for the app bar title
           ),
@@ -57,35 +54,17 @@ class LoginScreen extends ConsumerWidget {
                 ),
                 SizedBox(height: 24),
                 ElevatedButton(
-                  child: Text("Login"),
                   onPressed: () {
-                    // Call the login method here
-                    // Example: authProvider.login(emailController.text, passwordController.text);
-                     ref.read(loginProvider.notifier).login(emailController.text, passwordController.text);
+                    // Handle registration logic here
                   },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(horizontal: 40, vertical: 16),
-                    primary: Colors.black, // Button background color
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30), // Button border radius
-                    ),
-                    shadowColor: Colors.grey, // Shadow color
-                    elevation: 5, // Shadow elevation
+                    primary: Colors.blue, // Button background color
                   ),
-                ),
-                SizedBox(height: 16), // Add some spacing
-                TextButton(
-                  onPressed: () {
-                    // Navigate to the registration screen
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => RegisterScreen()),
-                    );
-                  },
                   child: Text(
                     'Register',
                     style: TextStyle(
-                      color: Colors.blue, // Button text color
-                      decoration: TextDecoration.underline,
+                      color: Colors.white, // Button text color
                     ),
                   ),
                 ),
@@ -96,9 +75,4 @@ class LoginScreen extends ConsumerWidget {
       ),
     );
   }
-
-
-
-
-
 }
